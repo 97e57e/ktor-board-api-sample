@@ -30,6 +30,7 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-java-time:$exposed_version")
 
     implementation("org.mariadb.jdbc:mariadb-java-client:2.7.1")
+    implementation("com.zaxxer:HikariCP:3.4.2")
 
     testImplementation("io.ktor:ktor-server-tests:$ktor_version")
 }

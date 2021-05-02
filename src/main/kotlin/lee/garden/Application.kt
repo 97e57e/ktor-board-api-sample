@@ -1,7 +1,7 @@
 package lee.garden
 
 import io.ktor.application.*
-import lee.garden.config.database
+import lee.garden.config.databaseInit
 import lee.garden.plugins.*
 import lee.garden.router.baseRouter
 
@@ -13,7 +13,7 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
 fun Application.module(testing: Boolean = false) {
     baseRouter()
-    database()
+    databaseInit()
     configureSerialization()
     configureMonitoring()
 }
