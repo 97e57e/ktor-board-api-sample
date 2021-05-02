@@ -9,17 +9,17 @@ import org.slf4j.event.*
 import io.ktor.application.*
 import io.ktor.response.*
 import io.ktor.request.*
-import com.example.plugins.*
 import kotlin.test.*
 import io.ktor.server.testing.*
+import lee.garden.router.baseRouter
 
 class ApplicationTest {
     @Test
     fun testRoot() {
-        withTestApplication({ configureRouting() }) {
-            handleRequest(HttpMethod.Get, "/").apply {
+        withTestApplication({ baseRouter() }) {
+            handleRequest(HttpMethod.Get, "/board").apply {
                 assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals("Hello World!", response.content)
+                assertEquals("this is board api", response.content)
             }
         }
     }

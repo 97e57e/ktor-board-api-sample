@@ -15,3 +15,5 @@ dist
 npm-debug.log
 classes
 out
+
+src/main/resources/application-security.conf
