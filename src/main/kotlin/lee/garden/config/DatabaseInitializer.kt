@@ -7,6 +7,8 @@ import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.transactions.transaction
 import com.zaxxer.hikari.HikariDataSource
 import com.zaxxer.hikari.HikariConfig
+import lee.garden.entity.Posts
+import org.jetbrains.exposed.sql.SchemaUtils
 
 fun Application.databaseInit() {
 
@@ -18,6 +20,8 @@ fun Application.databaseInit() {
 
     transaction {
         addLogger(StdOutSqlLogger)
+
+        SchemaUtils.create(Posts)
     }
 
 }
