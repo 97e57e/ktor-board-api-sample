@@ -3,6 +3,7 @@ package lee.garden.service
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import lee.garden.dto.post.PostResponse
+import lee.garden.dto.post.PostSaveRequest
 import lee.garden.entity.Post
 import lee.garden.entity.Posts
 import org.jetbrains.exposed.sql.SortOrder
@@ -18,6 +19,12 @@ class PostService {
                 .orderBy(Posts.id to SortOrder.DESC)
                 .map(PostResponse.Companion::of)
                 .toList()
+        }
+    }
+
+    suspend fun createPost(postSaveRequest: PostSaveRequest) = withContext(Dispatchers.IO) {
+        transaction {
+            Post.new { this.content = postSaveRequest.content }
         }
     }
 }
