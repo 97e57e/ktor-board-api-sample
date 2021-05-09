@@ -25,6 +25,13 @@ class PostService {
         }
     }
 
+    suspend fun getById(id: Int) = withContext(Dispatchers.IO) {
+        transaction {
+            val post = Post.findById(id) ?: throw NotFoundException()
+            PostResponse.of(post)
+        }
+    }
+
     suspend fun createPost(postSaveRequest: PostSaveRequest) = withContext(Dispatchers.IO) {
         transaction {
             Post.new { this.content = postSaveRequest.content }

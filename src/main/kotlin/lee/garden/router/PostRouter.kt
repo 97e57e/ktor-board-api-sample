@@ -17,7 +17,8 @@ fun Application.postRouter(postService: PostService) {
                 call.respond(postService.getAll())
             }
             get("/{id}") {
-                call.respond("this is post detail api, id = " + call.parameters["id"])
+                val id = call.parameters["id"]?.toIntOrNull()?: throw BadRequestException("Parameter Id is Null")
+                call.respond(postService.getById(id))
             }
             post {
                 val body = call.receive<PostSaveRequest>()
