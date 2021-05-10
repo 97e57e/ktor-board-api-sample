@@ -7,6 +7,8 @@ val jackson_version: String by project
 plugins {
     application
     kotlin("jvm") version "1.5.0"
+
+    jacoco
 }
 
 group = "lee.garden"
@@ -37,4 +39,36 @@ dependencies {
     implementation("com.zaxxer:HikariCP:3.4.2")
 
     testImplementation("io.ktor:ktor-server-tests:$ktor_version")
+}
+
+jacoco {
+    toolVersion = "0.8.7"
+}
+
+tasks.test {
+    extensions.configure(JacocoTaskExtension::class) {
+        setDestinationFile(file("$buildDir/jacoco/jacoco.exec"))
+    }
+
+    finalizedBy("jacocoTestReport")
+}
+
+tasks.jacocoTestReport {
+    reports {
+        html.isEnabled = true
+        xml.isEnabled = false
+        csv.isEnabled = false
+    }
+
+    finalizedBy("jacocoTestCoverageVerification")
+}
+
+tasks.jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = "0.30".toBigDecimal()
+            }
+        }
+    }
 }
